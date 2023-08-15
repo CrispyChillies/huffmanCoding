@@ -2,7 +2,6 @@
 
 vector<int> encoding(string s1)
 {
-    // cout << "Encoding\n";
     unordered_map<string, int> table;
     for (int i = 0; i <= 255; i++)
     {
@@ -15,7 +14,6 @@ vector<int> encoding(string s1)
     p += s1[0];
     int code = 256;
     vector<int> output_code;
-    // cout << "String\tOutput_Code\tAddition\n";
     for (int i = 0; i < s1.length(); i++)
     {
         if (i != s1.length() - 1)
@@ -26,7 +24,6 @@ vector<int> encoding(string s1)
         }
         else
         {
-            // cout << p << "\t" << table[p] << "\t\t" << p + c << "\t" << code << endl;
             output_code.push_back(table[p]);
             table[p + c] = code;
             code++;
@@ -34,14 +31,12 @@ vector<int> encoding(string s1)
         }
         c = "";
     }
-    // cout << p << "\t" << table[p] << endl;
     output_code.push_back(table[p]);
     return output_code;
 }
 
 void decoding(vector<int> op, string outputFile)
 {
-    // cout << "\nDecoding\n";
     ofstream out(outputFile);
 
     if (!out)
@@ -86,7 +81,7 @@ void decoding(vector<int> op, string outputFile)
     out.close();
 }
 
-void writeBinaryToFile(const vector<int> &data, const string &filename)
+void writeBinaryToFile(const vector<int>& data, const string& filename)
 {
     ofstream file(filename, ios::binary | ios::out);
     if (!file)
@@ -97,13 +92,13 @@ void writeBinaryToFile(const vector<int> &data, const string &filename)
 
     for (int number : data)
     {
-        file.write(reinterpret_cast<const char *>(&number), sizeof(int));
+        file.write(reinterpret_cast<const char*>(&number), sizeof(int));
     }
 
     file.close();
 }
 
-vector<int> readBinaryFromFile(const string &filename)
+vector<int> readBinaryFromFile(const string& filename)
 {
     ifstream file(filename, ios::binary | ios::in);
     if (!file)
@@ -114,7 +109,7 @@ vector<int> readBinaryFromFile(const string &filename)
 
     vector<int> outputBin;
     int number;
-    while (file.read(reinterpret_cast<char *>(&number), sizeof(int)))
+    while (file.read(reinterpret_cast<char*>(&number), sizeof(int)))
     {
         outputBin.push_back(number);
     }
@@ -138,6 +133,9 @@ string readFile(string inputFile)
     while (getline(inf, line))
     {
         text += line;
+        if (!inf.eof()) {
+            text += '\n'; 
+        }
     }
 
     inf.close();
